@@ -1,20 +1,23 @@
-# dist
+# grunt-dist
 
 > Moves files from build dir to dist dir
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin by adding this to your package.json
 
-```shell
-npm install dist --save-dev
+```json
+devDependencies: {
+  "grunt-dist": "git://github.com/Agent-H/grunt-dist.git"
+  ...
+}
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('dist');
+grunt.loadNpmTasks('grunt-dist');
 ```
 
 ## The "dist" task
@@ -25,62 +28,42 @@ In your project's Gruntfile, add a section named `dist` to the data object passe
 ```js
 grunt.initConfig({
   dist: {
-    options: {
-      // Task-specific options go here.
-    },
     your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+      input: 'your/build-or-src/directory',
+      output: 'your/dist/directory',
+      dist: [
+        'a/file/to/copy/as.is',
+        'a/folder',
+        {src: 'source/of/a/file', dst: 'destination/of/that/file'},
+        {src: 'source/of/a/folder', dst: 'destination/of/that/folder'}
+      ]
+    }
+  }
 })
 ```
-
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+Say you have a frontend based on requirejs, your sources are in /src. You build using r.js into /build. But r.js may have kindly copied everything from src/ into build/ even though you only need build/app.js.
+Then use dist as follows:
 
 ```js
 grunt.initConfig({
   dist: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    your_target: {
+      input: 'your/build-or-src/directory',
+      output: 'your/dist/directory',
+      dist: [
+        'a/file/to/copy/as.is',
+        'a/folder',
+        {src: 'source/of/a/file', dst: 'destination/of/that/file'},
+        {src: 'source/of/a/folder', dst: 'destination/of/that/folder'}
+      ]
+    }
+  }
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  dist: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
