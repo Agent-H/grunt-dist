@@ -1,5 +1,5 @@
 {
-  "name": "dist",
+  "name": "grunt-dist",
   "description": "Moves files from build dir to dist dir",
   "version": "0.1.0",
   "homepage": "https://github.com/Agent-H/grunt-dist",
